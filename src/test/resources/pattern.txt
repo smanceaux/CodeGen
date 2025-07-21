@@ -1,0 +1,12 @@
+${lowerCase(arg0)} ${arg0} ${args[0]}
+${upperCase(lowerCase(arg0))} ${upperCase(arg0)} ${upperCase(args[0])}
+${label(lowerCase(arg0))} ${label(arg0)} ${label(args[0])}
+${lowerCase(lowerCase(arg0))} ${lowerCase(arg0)} ${lowerCase(args[0])}
+${capitalizedLabel(lowerCase(arg0))} ${capitalizedLabel(arg0)} ${capitalizedLabel(args[0])}
+${camelCase(lowerCase(arg0))} ${camelCase(arg0)} ${camelCase(args[0])}
+${kebabCase(lowerCase(arg0))} ${kebabCase(arg0)} ${kebabCase(args[0])}
+${pascalCase(lowerCase(arg0))} ${pascalCase(arg0)} ${pascalCase(args[0])}
+${snakeCase(lowerCase(arg0))} ${snakeCase(arg0)} ${snakeCase(args[0])}
+${dotCase(lowerCase(arg0))} ${dotCase(arg0)} ${dotCase(args[0])}
+${titleCase(lowerCase(arg0))} ${titleCase(arg0)} ${titleCase(args[0])}
+${quote(lowerCase(arg0))} ${quote(arg0)} ${quote(args[0])}

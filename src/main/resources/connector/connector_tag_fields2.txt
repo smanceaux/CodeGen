@@ -1,0 +1,8 @@
+  /**
+   * ${capitalizedLabel(tags[index].type)} ${label(tags[index].name)} tag.
+   **/
+  private static final String TAG_${upperCase(tags[index].name)} = ${lowerCase(tags[index].type)}Tag(
+    "${upperCase(connector)}_${upperCase(tags[index].name)}",
+    "${connector} ${label(tags[index].name)}",
+    "${connector} ${tags[index].description}");
+
