@@ -1,6 +1,6 @@
-package cap.manchou.codegen
+package cap.manchou.codegen.strings
 
-import org.apache.commons.lang3.StringUtils.isNotBlank
+import org.apache.commons.lang3.StringUtils
 
 
 private fun splitCamelCase(str: String): List<String> {
@@ -38,11 +38,11 @@ private fun splitCamelCase(str: String): List<String> {
  */
 fun superSplit(str: String): List<String> {
   return splitCamelCase(str.trim())
-    .filter { isNotBlank(it) }
+    .filter(StringUtils::isNotBlank)
     .stream()
     .flatMap { it.split(' ', '-', '.', '_').toList().stream() }
-    .filter { isNotBlank(it) }
-    .map { it.trim() }
+    .filter(StringUtils::isNotBlank)
+    .map(String::trim)
     .toList()
 }
 

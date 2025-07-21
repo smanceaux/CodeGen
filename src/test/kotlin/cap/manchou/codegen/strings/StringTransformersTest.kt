@@ -1,10 +1,11 @@
-import cap.manchou.codegen.*
+package cap.manchou.codegen.strings
+
 import cap.manchou.codegen.matcher.converts
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 class StringTransformersTest {
 
@@ -53,7 +54,7 @@ class StringTransformersTest {
 
     @Test
     fun `should return empty list for empty string`() {
-      assertEquals(emptyList<String>(), superSplit(""))
+      assertEquals(emptyList(), superSplit(""))
     }
 
     @Test

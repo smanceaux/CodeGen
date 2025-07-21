@@ -1,6 +1,6 @@
-import cap.manchou.codegen.CodeGenerator
-import cap.manchou.codegen.DummyObject
-import cap.manchou.codegen.error.InvalidExpressionException
+package cap.manchou.codegen.generator
+
+import cap.manchou.codegen.generator.error.InvalidExpressionException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

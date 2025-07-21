@@ -1,13 +1,13 @@
 package cap.manchou.codegen.connector
 
-import cap.manchou.codegen.CodeGenerator
+import cap.manchou.codegen.generator.CodeGenerator
 import java.io.File
 
 class TagGenerator(val connector: String, val sinceVersion: String = "") {
 
- private val templatePath = "src/main/resources/connector/connector_tags.txt";
+  private val templatePath = "src/main/resources/connector/connector_tags.txt"
 
-  fun generateTags(vararg tags: Tag) : String {
+  fun generateTags(vararg tags: Tag): String {
     val generator = CodeGenerator.loadFromFile(File(templatePath))
 
     val params = mapOf(
@@ -19,4 +19,3 @@ class TagGenerator(val connector: String, val sinceVersion: String = "") {
     return generator.generate(params)
   }
 }
-

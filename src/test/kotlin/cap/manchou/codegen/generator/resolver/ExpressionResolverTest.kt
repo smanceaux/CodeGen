@@ -1,9 +1,8 @@
-package cap.manchou.codegen
+package cap.manchou.codegen.generator.resolver
 
-import cap.manchou.codegen.ExpressionResolver
-import cap.manchou.codegen.error.InvalidExpressionException
-import cap.manchou.codegen.lowerCase
-import cap.manchou.codegen.upperCase
+import cap.manchou.codegen.generator.error.InvalidExpressionException
+import cap.manchou.codegen.strings.lowerCase
+import cap.manchou.codegen.strings.upperCase
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -42,69 +41,111 @@ class ExpressionResolverTest {
       expressionResolver.resolveExpressionAsObject("fvfdjn\"dcd\"")
     }
 
-    assertThat(ex.message, equalTo("Unresolved expression fvfdjn\"dcd\""))
+    assertThat(
+      ex.message, equalTo("Unresolved expression fvfdjn\"dcd\"")
+    )
   }
 
   @Test
   fun `should handle null input`() {
-    assertThat(expressionResolver.resolveExpressionAsObject("variableNull.field1"), equalTo(null))
-    assertThat(expressionResolver.resolveExpression("variableNull.field1"), equalTo("null"))
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("variableNull.field1"), equalTo(null)
+    )
+    assertThat(
+      expressionResolver.resolveExpression("variableNull.field1"), equalTo("null")
+    )
   }
 
   @Test
   fun `should handle empty input`() {
-    assertThat(expressionResolver.resolveExpressionAsObject(""), equalTo(""))
-    assertThat(expressionResolver.resolveExpressionAsObject("\"\""), equalTo(""))
+    assertThat(
+      expressionResolver.resolveExpressionAsObject(""), equalTo("")
+    )
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("\"\""), equalTo("")
+    )
     assertThat(expressionResolver.resolveExpression(""), equalTo(""))
   }
 
   @Test
   fun `should resolve literal string`() {
-    assertThat(expressionResolver.resolveExpression("\"hello world\""), equalTo("hello world"))
+    assertThat(
+      expressionResolver.resolveExpression("\"hello world\""), equalTo("hello world")
+    )
   }
 
   @Test
   fun `should resolve literal number`() {
-    assertThat(expressionResolver.resolveExpressionAsObject("123"), equalTo(123L))
-    assertThat(expressionResolver.resolveExpressionAsObject("12.3"), equalTo(12.3))
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("123"), equalTo(123L)
+    )
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("12.3"), equalTo(12.3)
+    )
   }
 
   @Test
   fun `should resolve null`() {
-    assertThat(expressionResolver.resolveExpressionAsObject("null"), equalTo(null))
-    assertThat(expressionResolver.resolveExpression("null"), equalTo("null"))
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("null"), equalTo(null)
+    )
+    assertThat(
+      expressionResolver.resolveExpression("null"), equalTo("null")
+    )
   }
 
   @Test
   fun `should resolve variables`() {
     assertThat(
-      expressionResolver.resolveExpressionAsObject("variableString"),
-      equalTo("hello world")
-    )
-    assertThat(expressionResolver.resolveExpressionAsObject("variableMap.field1"), equalTo("toto"))
-    assertThat(
-      expressionResolver.resolveExpressionAsObject("variableMap[\"field1\"]"),
-      equalTo("toto")
-    )
-    assertThat(expressionResolver.resolveExpressionAsObject("variableMap.field2"), equalTo(42))
-    assertThat(expressionResolver.resolveExpression("variableMap.field2"), equalTo("42"))
-    assertThat(expressionResolver.resolveExpressionAsObject("variableList[1]"), equalTo(1))
-    assertThat(expressionResolver.resolveExpressionAsObject("variableList[2]"), equalTo(2))
-    assertThat(expressionResolver.resolveExpressionAsObject("variableList[3]"), equalTo(3))
-    assertThat(expressionResolver.resolveExpressionAsObject("variableNumber"), equalTo(123))
-    assertThat(expressionResolver.resolveExpressionAsObject("variableBoolean"), equalTo(true))
-    assertThat(expressionResolver.resolveExpression("variableBoolean"), equalTo("true"))
-    assertThat(expressionResolver.resolveExpressionAsObject("variableObject"), equalTo(DummyObject("hello", 42)))
-    assertThat(expressionResolver.resolveExpression("variableObject"), equalTo("DummyObject(field1=hello, field2=42)"))
-    assertThat(
-      expressionResolver.resolveExpressionAsObject("variableObject.field1"),
-      equalTo("hello")
+      expressionResolver.resolveExpressionAsObject("variableString"), equalTo("hello world")
     )
     assertThat(
-      expressionResolver.resolveExpressionAsObject("variableObject.field1.length"),
-      equalTo(5)
+      expressionResolver.resolveExpressionAsObject("variableMap.field1"), equalTo("toto")
     )
-    assertThat(expressionResolver.resolveExpressionAsObject("variableObject.field2"), equalTo(42))
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("variableMap[\"field1\"]"), equalTo("toto")
+    )
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("variableMap.field2"), equalTo(42)
+    )
+    assertThat(
+      expressionResolver.resolveExpression("variableMap.field2"), equalTo("42")
+    )
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("variableList[1]"), equalTo(1)
+    )
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("variableList[2]"), equalTo(2)
+    )
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("variableList[3]"), equalTo(3)
+    )
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("variableNumber"), equalTo(123)
+    )
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("variableBoolean"), equalTo(true)
+    )
+    assertThat(
+      expressionResolver.resolveExpression("variableBoolean"), equalTo("true")
+    )
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("variableObject"),
+      equalTo(DummyObject("hello", 42))
+    )
+    assertThat(
+      expressionResolver.resolveExpression("variableObject"),
+      equalTo("DummyObject(field1=hello, field2=42)")
+    )
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("variableObject.field1"), equalTo("hello")
+    )
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("variableObject.field1.length"), equalTo(5)
+    )
+    assertThat(
+      expressionResolver.resolveExpressionAsObject("variableObject.field2"), equalTo(42)
+    )
   }
 
   @Test
@@ -112,35 +153,44 @@ class ExpressionResolverTest {
     var ex = assertThrows<InvalidExpressionException> {
       expressionResolver.resolveExpressionAsObject("variableNotDefined")
     }
-    assertThat(ex.message, equalTo("Unresolved expression variableNotDefined"))
+    assertThat(
+      ex.message, equalTo("Unresolved expression variableNotDefined")
+    )
 
     ex = assertThrows<InvalidExpressionException> {
       expressionResolver.resolveExpressionAsObject("variableNull.field1.length")
     }
     assertThat(
-      ex.message,
-      equalTo("Expression variableNull.field1 is null. Could not resolve field length")
+      ex.message, equalTo("Expression variableNull.field1 is null. Could not resolve field length")
     )
 
     ex = assertThrows<InvalidExpressionException> {
       expressionResolver.resolveExpressionAsObject("variableObject.toto")
     }
-    assertThat(ex.message, equalTo("Unknown property toto in variable variableObject"))
+    assertThat(
+      ex.message, equalTo("Unknown property toto in variable variableObject")
+    )
 
     ex = assertThrows<InvalidExpressionException> {
       expressionResolver.resolveExpressionAsObject("variableObject[\"toto\"]")
     }
-    assertThat(ex.message, equalTo("Unknown property \"toto\" in variable variableObject"))
+    assertThat(
+      ex.message, equalTo("Unknown property \"toto\" in variable variableObject")
+    )
 
     ex = assertThrows<InvalidExpressionException> {
       expressionResolver.resolveExpressionAsObject("variableMap.toto")
     }
-    assertThat(ex.message, equalTo("Unknown property toto in variable variableMap"))
+    assertThat(
+      ex.message, equalTo("Unknown property toto in variable variableMap")
+    )
 
     ex = assertThrows<InvalidExpressionException> {
       expressionResolver.resolveExpressionAsObject("variableMap[\"toto\"]")
     }
-    assertThat(ex.message, equalTo("Unknown property \"toto\" in variable variableMap"))
+    assertThat(
+      ex.message, equalTo("Unknown property \"toto\" in variable variableMap")
+    )
   }
 
   @Nested
@@ -197,14 +247,10 @@ class ExpressionResolverTest {
       }
 
       assertThat(
-        ex.message,
-        equalTo("Unresolved expression upperCase(lrelk)")
+        ex.message, equalTo("Unresolved expression upperCase(lrelk)")
       )
 
-      assertThat(
-        ex.cause?.message,
-        equalTo("Unresolved expression lrelk")
-      )
+      assertThat(ex.cause?.message, equalTo("Unresolved expression lrelk"))
     }
   }
 
