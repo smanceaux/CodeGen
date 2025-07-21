@@ -1,6 +1,8 @@
-package cap.manchou.codegen
+package cap.manchou.codegen.generator
 
-import cap.manchou.codegen.error.InvalidExpressionException
+import cap.manchou.codegen.generator.error.InvalidExpressionException
+import cap.manchou.codegen.generator.resolver.ExpressionResolver
+import cap.manchou.codegen.strings.*
 import java.io.File
 import java.util.regex.Pattern
 
@@ -41,6 +43,7 @@ class CodeGenerator(private val template: String) {
     "snakeCase" to wrapFunction(::snakeCase),
     "dotCase" to wrapFunction(::dotCase),
     "titleCase" to wrapFunction(::titleCase),
+    "isEmpty" to ::isEmpty,
   )
 
   fun registerFunction(name: String, function: (Any?) -> Any?) {
@@ -62,7 +65,6 @@ class CodeGenerator(private val template: String) {
     var output = template
 
     registerFunction("template") { s -> template(s, params) }
-    registerFunction("isEmpty", ::isEmpty)
 
     val resolver = ExpressionResolver(functions, params)
 
@@ -100,7 +102,7 @@ class CodeGenerator(private val template: String) {
     while (matcher.find()) {
       val expression = matcher.group()
       val value = resolver.resolveExpression(extractExpression(expression))
-      output = output.replace(expression, value);
+      output = output.replace(expression, value)
     }
 
     return output
@@ -174,31 +176,6 @@ class CodeGenerator(private val template: String) {
     return if (value is Number) value.toInt() else value?.toString()?.toInt() ?: 0
   }
 
-  private data class ParsedIfExpression(
-    val conditionExpression: String,
-    val thenExpression: String?,
-    val elseExpression: String?,
-  ) {
-    fun resolve(resolver: ExpressionResolver): String {
-      val conditionVal = resolver.resolveExpression(conditionExpression)
-      if (conditionVal == "true" &&
-        thenExpression != null
-      ) {
-        return resolver.resolveExpression(thenExpression)
-      }
-      if (conditionVal == "false" && elseExpression != null) {
-        return resolver.resolveExpression(elseExpression)
-      }
-      return ""
-    }
-  }
-
-  private data class ParsedForExpression(
-    val indexName: String?,
-    val intProgression: IntProgression,
-    val toResolveExpression: String,
-  )
-
   /** Return the expression between {...}. */
   private fun extractExpression(expression: String): String {
     return expression.substring(expression.indexOf('{') + 1, expression.lastIndexOf('}')).trim()
@@ -237,6 +214,7 @@ class CodeGenerator(private val template: String) {
         }
         return file
       }
+
       is File -> return path
       else -> throw InvalidExpressionException("Invalid template path: $path")
     }

@@ -2,6 +2,7 @@ package cap.manchou.codegen
 
 import cap.manchou.codegen.connector.Tag
 import cap.manchou.codegen.connector.TagGenerator
+import cap.manchou.codegen.generator.CodeGenerator
 import java.io.File
 
 fun main(vararg args: String) {
@@ -24,7 +25,7 @@ fun generateConnectorTags() {
 fun generateDlImg() {
   val generator = CodeGenerator.loadFromFile(File("src/main/resources/curl/dl_img.txt"))
 
-  val domain = "https://www.example.com/";
+  val domain = "https://www.example.com/"
 
   val code = "CODE123456"
   val idsNina = listOf(
