@@ -1,0 +1,5 @@
+List:
+$for(index = 1..items.size){
+  template("nested_pattern.txt")
+}
+End.

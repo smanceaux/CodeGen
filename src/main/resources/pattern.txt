@@ -1,0 +1,5 @@
+    ${upperCase(arg0)}("${capitalizedLabel(arg0)}"),
+    "${ camelCase( upperCase("  literal value " ) )  }"
+    "${ lowerCase( upperCase(arg1.toto)  )  }"
+    "${arg2}" name: "${arg2.name}" map.toto: "${arg2.map.toto}"
+    $for(index = 0..2){ index }

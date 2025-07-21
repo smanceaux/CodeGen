@@ -1,0 +1,12 @@
+$for( index = 1..tags.size ){
+  template("connector_tag_fields2.txt")
+}
+
+  public static List<Tag> createTags(@NonNull String namespace) {
+    return Stream.of(
+$for( index = 1..tags.size ){
+  template("connector_tag_createTag_line2.txt")
+}       )
+       .map(t -> t.buildTag(namespace))
+       .toList();
+  }

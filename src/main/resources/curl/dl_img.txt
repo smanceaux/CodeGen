@@ -1,0 +1,5 @@
+curl -o img${id}.jpg '${domain}php/viewjpeg.php?id=${id}&max=750&code=${code}&color=true'\
+ -H 'Accept: image/avif,image/webp,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.5' \
+ -H 'Accept-Encoding: gzip, deflate, br, zstd' \
+ -H 'Referer: ${domain}' \
+ -H 'Sec-Fetch-Dest: image'

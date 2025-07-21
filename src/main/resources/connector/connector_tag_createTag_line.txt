@@ -1,0 +1,1 @@
+            ${lowerCase(tags[index].type)}Tag(TAG__${upperCase(tags[index].name)}__ID, TAG__${upperCase(tags[index].name)}__NAME, TAG__${upperCase(tags[index].name)}__DESCRIPTION)$if{index < tags.size} then {","}

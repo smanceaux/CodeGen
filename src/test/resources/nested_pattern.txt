@@ -1,0 +1,2 @@
+  ${index}. ${capitalizedLabel(items[index].name)}$if{index < items.length}then{",
+"}

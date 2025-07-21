@@ -1,0 +1,7 @@
+  /**
+   * ${capitalizedLabel(tags[index].type)} ${label(tags[index].name)} tag.$if{isEmpty(sinceVersion)} then{""} else{template("connector_since.txt")}
+   **/
+  private static final String TAG__${upperCase(tags[index].name)}__ID = "${upperCase(connector)}_${upperCase(tags[index].name)}";
+  private static final String TAG__${upperCase(tags[index].name)}__NAME = "${connector} ${label(tags[index].name)}";
+  private static final String TAG__${upperCase(tags[index].name)}__DESCRIPTION  = "${connector} ${label(tags[index].description)}";
+
