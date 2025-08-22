@@ -6,7 +6,32 @@ import cap.manchou.codegen.generator.CodeGenerator
 import java.io.File
 
 fun main(vararg args: String) {
-  generateDlImg()
+  try {
+    recursiveFunction(10)
+  }
+  catch (e: Exception) {
+    println(LogUtils.collapseStack(e))
+    e.printStackTrace()
+  }
+}
+
+fun testLogUtils() {
+  try {
+    recursiveFunction(10)
+  }
+  catch (e: Exception) {
+    println(LogUtils.collapseStack(e))
+    e.printStackTrace()
+  }
+}
+
+fun recursive2Function(i: Int) = recursiveFunction(i)
+
+fun recursiveFunction(i: Int) : Int {
+  if (i > 0) {
+    return recursive2Function(i - 1)
+  }
+  throw Exception("test")
 }
 
 fun generateConnectorTags() {
